@@ -31,7 +31,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: var(--orange);
+    background: #eeeeee;
     min-height: 100vh;
     background-image: url(${waveImg});
     background-position: center top;
