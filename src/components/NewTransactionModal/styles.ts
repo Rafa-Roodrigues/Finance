@@ -52,7 +52,12 @@ export const Formulario = styled(Form)`
     }
   }
 `;
-export const Input = styled(Field)`
+
+interface Error {
+  error: boolean;
+}
+
+export const Input = styled(Field)<Error>`
   width: 99%;
   height: 3rem;
 
@@ -60,14 +65,14 @@ export const Input = styled(Field)`
   color: #333333;
 
   border-radius: 5px;
-  border: 2px solid #d7d7d7;
+  border: 2px solid ${({error}) => error ? "var(--red)" : "#d7d7d7"};
   background:#ffffff;
 
   padding-left: 1rem;
   outline: 0;
 
   &::placeholder {
-    color: #333333;
+    color: var(--gray);
   } 
 `;
 export const Error = styled.span`
