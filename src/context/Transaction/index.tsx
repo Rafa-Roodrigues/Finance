@@ -1,5 +1,8 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+
 import { api } from "../../services/api";
+import { NewTransactionModalContext } from "../NewTransactionModal";
 
 interface TransactionProps {
   title: string;
@@ -31,6 +34,8 @@ export const TransactionContext = createContext<TransactionContextProps>(
 export function TransactionProvider({children}: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<DataServerProps[]>([]);
 
+  const { closeModal } = useContext(NewTransactionModalContext);
+
   useEffect(() => {
     async function getTransactions() {
       const response = await api.get("/transaction");
@@ -41,8 +46,14 @@ export function TransactionProvider({children}: TransactionProviderProps) {
   }, [])
 
   async function createTransaction(data: TransactionProps) {
+   try {
     const response = await api.post("/transaction", data);
     setTransactions([...transactions, response.data.transaction]);
+    closeModal();
+    toast.success("Transação efetuada com sucesso!")
+   } catch(err) {
+    toast.success("Erro no cadastro da transação.")
+   }
   }
 
   return (

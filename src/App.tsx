@@ -1,3 +1,6 @@
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { NewTransactionModal } from "./components/NewTransactionModal";
 
 import { TransactionProvider } from './context/Transaction';
@@ -9,13 +12,14 @@ import { GlobalStyle } from './styles/GlobalStyle';
 
 function App() {
   return (
-    <TransactionProvider>
-      <NewTransactionModalProvider>
+    <NewTransactionModalProvider>
+      <TransactionProvider>
         <Router/>
+        <ToastContainer autoClose={2500}/>
         <GlobalStyle/>
         <NewTransactionModal />
-      </NewTransactionModalProvider>
-    </TransactionProvider>
+      </TransactionProvider>
+    </NewTransactionModalProvider>
   )
 }
 
